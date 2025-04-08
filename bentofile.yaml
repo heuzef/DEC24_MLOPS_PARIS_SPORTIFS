@@ -1,0 +1,22 @@
+service: "src.service:champion_service"
+labels:
+  owner: "Heuzef"
+  project: "PariVision"
+  description: "DEC24_MLOPS_PARIS_SPORTIFS"
+docker:
+  dockerfile_template: "./Dockerfile.bentoml"
+  base_image: python:3.8-slim
+include:
+  - src/service.py
+python:
+    packages:
+      - datetime
+      - numpy
+      - pandas
+      - scikit-learn
+      - requests
+      - fastapi
+      - bentoml
+      - pyjwt
+      - mlflow
+      - pymongo

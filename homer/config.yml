@@ -1,0 +1,117 @@
+---
+# Homepage configuration
+# See https://fontawesome.com/search for icons options
+
+title: "PariVision"
+subtitle: "DEC24_MLOPS_PARIS_SPORTIFS"
+logo: "logo.png"
+
+header: true
+footer: false
+
+# Optional theme customization
+theme: neon
+
+# Optional theme customization (color overrrides)
+# overrrides can also be done using CSS vars 
+colors:
+  light:
+    highlight-primary: "#3367d6"
+    highlight-secondary: "#4285f4"
+    highlight-hover: "#5a95f5"
+    background: "#f5f5f5"
+    card-background: "#ffffff"
+    text: "#363636"
+    text-header: "#ffffff"
+    text-title: "#303030"
+    text-subtitle: "#424242"
+    card-shadow: rgba(0, 0, 0, 0.1)
+    link: "#3273dc"
+    link-hover: "#363636"
+  dark:
+    highlight-primary: "#3367d6"
+    highlight-secondary: "#4285f4"
+    highlight-hover: "#5a95f5"
+    background: "#131313"
+    card-background: "#2b2b2b"
+    text: "#eaeaea"
+    text-header: "#ffffff"
+    text-title: "#fafafa"
+    text-subtitle: "#f5f5f5"
+    card-shadow: rgba(0, 0, 0, 0.4)
+    link: "#3273dc"
+    link-hover: "#ffdd57"
+
+# Optional message
+# message:
+#   #url: https://b4bz.io
+#   style: "is-dark" # See https://bulma.io/documentation/components/message/#colors for styling options.
+#   title: "Demo !"
+#   icon: "fa fa-grin"
+#   content: "This is a dummy homepage demo. <br /> Find more information on <a href='https://github.com/bastienwirtz/homer'>github.com/bastienwirtz/homer</a>"
+
+# Optional navbar
+# links: [] # Allows for navbar (dark mode, layout, and search) without any links
+links:
+  - name: "heuzef.com"
+    url: "https://heuzef.com"
+    icon: "fas fa-globe"
+    target: "_blank"
+  # this will link to a second homer page that will load config from additional-page.yml and keep default config values as in config.yml file
+  # see url field and assets/additional-page.yml.dist used in this example:
+  #- name: "another page!"
+  #  icon: "fas fa-file-alt"
+  #  url: "#additional-page" 
+
+# Services
+# First level array represent a group.
+# Leave only a "items" key if not using group (group name, icon & tagstyle are optional, section separation will not be displayed).
+services:
+  - name: "Gestion"
+    icon: "fas fa-calendar"
+    items:
+      - name: "Documentation (Confluence)"
+        logo: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/confluence.png"
+        url: "https://heuzef.atlassian.net/wiki/spaces/~712020b0ae8f9eeb79451daefbac68172f2c6c/pages"
+        target: "_blank"
+      - name: "Kanban (Trello)"
+        logo: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/atlassian.png"
+        url: "https://trello.com/b/FWsGiUwW/dec24mlopsparissportifs"
+        target: "_blank"
+      - name: "Dépôt GIT (Github)"
+        logo: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/github.png"
+        url: "https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/"
+        target: "_blank"
+  - name: "Orchestration"
+    icon: "fas fa-layer-group"
+    items:
+      - name: "Portainer (9443)"
+        logo: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/portainer.png"
+        url: "https://parivision.heuzef.com:9443"
+        target: "_blank"
+      - name: "Jenkins (8080)"
+        logo: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jenkins.png"
+        url: "http://parivision.heuzef.com:8080"
+        target: "_blank"
+  - name: "Services"
+    icon: "fas fa-cloud"
+    items:
+      - name: "VirtualBetsApi (8800)"
+        logo: "https://www.svgrepo.com/show/489281/api.svg"
+        url: "http://parivision.heuzef.com:8800/docs"
+        target: "_blank"
+      - name: "MLFlow (5000)"
+        logo: "https://mlflow.org/img/mlflow-white.svg"
+        url: "http://parivision.heuzef.com:5000"
+        target: "_blank"
+      - name: "Streamlit (8501)"
+        logo: "https://streamlit.io/favicon.svg"
+        url: "http://parivision.heuzef.com:8501"
+        target: "_blank"
+  - name: "Surveillance"
+    icon: "fas fa-eye"
+    items:
+      - name: "Grafana ()"
+        logo: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/grafana.png"
+        url: ""
+        target: "_blank"
