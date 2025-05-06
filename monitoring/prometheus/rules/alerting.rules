@@ -1,0 +1,91 @@
+groups:
+- name: alert_group_rules
+  rules:
+    - alert: PrometheusDown
+      expr: up{job="prometheus"} == 0
+      labels:
+        severity: operation
+      annotations:
+        summary: "Our Prometheus Server is down"
+    - alert: NodeDown
+      expr: up{job="node"} == 0
+      labels:
+        severity: critical
+      annotations:
+        summary: "The server is down"
+    - alert: HighCPUUsage
+      expr: (100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)) > 80
+      labels:
+        severity: warning
+      annotations:
+        summary: "High CPU usage detected on {{ $labels.instance }}"
+        description: "CPU usage is above 80% on {{ $labels.instance }}."
+    - alert: HighMemoryUsage
+      expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 80
+      labels:
+        severity: warning
+      annotations:
+        summary: "High memory usage detected on {{ $labels.instance }}"
+        description: "Memory usage is above 80% on {{ $labels.instance }}."
+    - alert: DiskSpaceLow
+      expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 10
+      labels:
+        severity: critical
+      annotations:
+        summary: "Low disk space on {{ $labels.instance }}"
+        description: "Disk space is below 10% on {{ $labels.instance }}."
+    - alert: CriticalServiceDown
+      expr: up{job="critical_service"} == 0
+      labels:
+        severity: critical
+      annotations:
+        summary: "Critical service is down"
+        description: "The critical service is down on {{ $labels.instance }}."
+    - alert: ServiceDown
+      expr: up == 0
+      for: 5m
+      labels:
+        severity: page
+      annotations:
+        summary: "Instance {{ $labels.instance }} down"
+        description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes."
+    - alert: HighLoad
+      expr: node_load1 > 0.6
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Instance {{ $labels.instance }} under high load"
+        description: "{{ $labels.instance }} of job {{ $labels.job }} is under high load."
+    - alert: LowMemory
+      expr: node_memory_MemAvailable_bytes / 1000000000 < 1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Instance {{ $labels.instance }} has low available memory"
+        description: "{{ $labels.instance }} of job {{ $labels.job }} has less than 1G of memory available."
+    - alert: LowDiskSpace
+      expr: node_filesystem_avail_bytes / node_filesystem_size_bytes * 100 < 10
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Instance {{ $labels.instance }} has low disk space"
+        description: "{{ $labels.instance }} of job {{ $labels.job }} has less than 10% disk space available."
+    - alert: HighHTTPErrors
+      expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Instance {{ $labels.instance }} has high HTTP errors"
+        description: "{{ $labels.instance }} of job {{ $labels.job }} has a high rate of HTTP 5xx errors."
+    - alert: HighResponseTime
+      expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Instance {{ $labels.instance }} has high response time"
+        description: "{{ $labels.instance }} of job {{ $labels.job }} has a 95th percentile response time greater than 1 second."

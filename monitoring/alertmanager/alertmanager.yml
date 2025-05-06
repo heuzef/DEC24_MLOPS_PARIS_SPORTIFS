@@ -1,0 +1,21 @@
+route:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+  receiver: 'slack'
+
+receivers:
+  - name: 'slack'
+    slack_configs:
+        - send_resolved: true
+          username: 'PariVision'
+          channel: '#dec24cmlops_paris_sportif'
+          icon_emoji: ':trophy:'
+          api_url: 'https://hooks.slack.com/services/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'
+
+inhibit_rules:
+  - source_match:
+      severity: critical
+    target_match:
+      severity: operation

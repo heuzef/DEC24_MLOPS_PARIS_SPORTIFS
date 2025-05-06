@@ -1,0 +1,11 @@
+streamlit
+streamlit-extras
+requests
+datetime
+pathlib
+numpy
+pandas
+jsons
+dotenv
+setuptools
+pymongo

@@ -1,0 +1,19 @@
+# PariVision API
+# Utiliser une image de base Python
+FROM python:3.9-slim
+
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /api
+
+# Copier les fichiers de l'application
+COPY .env .
+COPY api .
+
+# Installer les dépendances
+RUN pip3 install --no-cache-dir -r /api/requirements.txt
+
+# Port
+EXPOSE 3000
+
+# Commande pour exécuter l'application
+CMD python3 -m uvicorn parivision:api --host 0.0.0.0 --port 3000

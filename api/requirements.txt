@@ -1,0 +1,11 @@
+dotenv
+numpy
+pandas
+mlflow
+mlflow[auth]
+Flask-WTF
+fastapi[all]
+uvicorn
+pydantic
+prometheus_fastapi_instrumentator
+prometheus_client
