@@ -1,0 +1,27 @@
+# Python env
+__pycache__/
+.mypy_cache/
+*.py[cod]
+.Python
+.venv
+
+# Secrets
+.env
+
+# Logs
+pip-log.txt
+pip-delete-this-directory.txt
+*.log
+
+# IDE
+.idea
+.vscode/
+.spyproject/
+.ipynb_checkpoints/
+
+# vim
+*.swp
+*.swo
+
+# Mac OS-specific storage files
+.DS_Store

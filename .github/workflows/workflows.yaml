@@ -1,0 +1,22 @@
+name: Workflows GitHub Action
+# Run Workflows when push on master
+on:
+  push:
+    branches:
+      - master
+jobs:
+  execute:
+    name: Update the production VM
+    runs-on: ubuntu-latest
+    steps:
+    - name: Connecting on remote VM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+                  cd /home/parivision/DEC24_MLOPS_PARIS_SPORTIFS/
+                  git pull
+    - name: Send reload request to Prometheus
+      run: curl -X POST http://parivision.heuzef.com:9090/-/reload

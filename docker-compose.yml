@@ -1,0 +1,262 @@
+#################
+# PARIVISION 2025
+# Politique de redémarrage des services : 
+# "unless-stopped" signifie que le conteneur redémarrera automatiquement sauf si arrêté manuellement.
+#################
+version: '3.7' # Version Docker Compose utilisée. Il est recommandé d'utiliser une version récente pour bénéficier des dernières fonctionnalités.
+services: # Définit les différents services isolée.
+  portainer: # Portainer est une interface utilisateur graphique pour gérer vos environnements Docker.
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    ports:
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Monte le socket Docker de l'hôte dans le conteneur. Cela permet à Portainer de gérer Docker (mode DooD).
+      - portainer_data:/data/
+    networks:
+      - parivision_net
+
+  mongodb: # Base de données NoSQL MongoDB. Stock les données du projet.
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME} # Nom d'utilisateur administrateur pour MongoDB.
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD} # Mot de passe administrateur pour MongoDB.
+    networks:
+      - parivision_net
+    depends_on: # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de Portainer.
+      - portainer
+
+  virtualbetsapi: # API VirtualBetsAPI, source de données du projet.
+    image: virtualbetsapi_image
+    container_name: virtualbetsapi
+    restart: unless-stopped
+    build: # Indique à Docker Compose de construire l'image à partir d'un Dockerfile.
+      context: . # Le contexte de construction est le répertoire courant.
+      dockerfile: virtualbetsapi/Dockerfile_virtualbetsapi # Chemin vers le Dockerfile.
+    ports:
+      - "8800:8800"
+    networks:
+      - parivision_net
+    depends_on: # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de MongoDB.
+      - mongodb
+
+  mlflow: # MLflow est une plateforme open-source pour gérer le cycle de vie du machine learning.
+    image: ghcr.io/mlflow/mlflow:v2.21.3 # Utilise l'image officielle de MLflow depuis GitHub Container Registry.
+    container_name: mlflow
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/mlruns
+      - mlflow_artifacts:/mlartifacts
+    environment:
+      MLFLOW_FLASK_SERVER_SECRET_KEY: ${MLFLOW_FLASK_SERVER_SECRET_KEY} # Clé secrète pour le serveur Flask de MLflow (sécurité).
+      MLFLOW_TRACKING_USERNAME: ${MLFLOW_TRACKING_USERNAME} # Nom d'utilisateur pour l'authentification MLflow.
+      MLFLOW_TRACKING_PASSWORD: ${MLFLOW_TRACKING_PASSWORD} # Mot de passe pour l'authentification MLflow.
+    networks:
+      - parivision_net
+    depends_on: # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de MongoDB.
+      - mongodb
+    # Commandes exécutées au démarrage du conteneur :
+    # Installation de la dépendance python mlflow[auth] pour l'authentification,
+    # Démarre le serveur MLflow,
+    # Spécifie le chemin des expériences,
+    # Autorise l'exposition sans filtrage IP sur le port par défaut.
+    command: sh -c "pip install mlflow[auth] && mlflow server --backend-store-uri /mlruns --host 0.0.0.0 --port 5000 --app-name basic-auth"
+
+  streamlit: # App Streamlit du projet.
+    image: streamlit_image
+    container_name: streamlit
+    restart: unless-stopped
+    build: # Indique à Docker Compose de construire l'image à partir d'un Dockerfile.
+      context: . # Le contexte de construction est le répertoire courant.
+      dockerfile: app2/Dockerfile_streamlit # Chemin vers le Dockerfile.
+    ports:
+      - "8501:8501"
+    networks:
+      - parivision_net
+    depends_on: # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de Portainer.
+      - portainer
+
+  homer: # Portail d'accueil du projet.
+    image: b4bz/homer
+    container_name: homer
+    restart: unless-stopped
+    ports:
+      - 8081:8080
+    volumes:
+      - ./homer:/www/assets
+    user: 1000:1000
+    environment:
+      - INIT_ASSETS=0 # Install example configuration file & assets (favicons, ...) to help you get started.
+    networks:
+      - parivision_net
+    depends_on: # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de Portainer.
+      - portainer
+
+  parivision: # Service API de PariVision.
+    image: parivision_image
+    container_name: parivision
+    restart: unless-stopped
+    build: # Indique à Docker Compose de construire l'image à partir d'un Dockerfile.
+      context: . # Le contexte de construction est le répertoire courant.
+      dockerfile: api/Dockerfile_parivision # Chemin vers le Dockerfile.
+    ports:
+      - "3000:3000" # Port de FastAPI
+    networks:
+      - parivision_net
+    depends_on: # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de MLFlow.
+      - mlflow
+
+  prometheus: # Prometheus est un système de surveillance et d'alerte open-source.
+    image: prom/prometheus
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090" # Port de Prometheus
+    volumes:
+      - ./monitoring/prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    networks:
+      - parivision_net
+    depends_on: # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de Portainer.
+      - portainer
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml' # Chemin vers le fichier de configuration de Prometheus.
+      - '--storage.tsdb.path=/prometheus' # Chemin de stockage des données de Prometheus.
+      - '--web.enable-lifecycle' # Permet le contrôle de Prometheus via des API REST.
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries' # Permet d'utiliser les librairies de Prometheus.
+      - '--web.console.templates=/usr/share/prometheus/consoles' # Permet d'utiliser les consoles de Prometheus.
+
+  alertmanager: # Alert Manager est le système d'alerte open-source développé par Prometheus.
+    image: prom/alertmanager
+    container_name: alertmanager
+    restart: unless-stopped
+    ports:
+      - 9093:9093
+    volumes:
+      - ./monitoring/alertmanager/:/etc/alertmanager/
+      - alertmanager_data:/alertmanager
+    networks:
+      - parivision_net
+    depends_on:
+      - prometheus
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml' # Chemin vers le fichier de configuration de Alertmanager.
+      - '--storage.path=/alertmanager' # Chemin de stockage des données de Alertmanager.
+
+  node-exporter: # Node-exporter est l'outil de reférence Prometheus pour exposer les métriques d'un serveur.
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    ports:
+      - "9100:9100"
+    volumes: # Les montages suivants servent à accéder aux fichiers du système hôte.
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+      - /:/host:ro,rslave
+    networks:
+      - parivision_net
+    depends_on:
+      - prometheus # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de Prometheus.
+    command: # Les commandes suivantes servent à configurer les chemins d'accès aux fichiers du système hôte et à ignorer certains points de montage.
+      - '--path.rootfs=/host'
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    
+  mongodb-exporter:
+    image: percona/mongodb_exporter:0.44
+    container_name: mongodb-exporter
+    restart: unless-stopped
+    ports:
+      - "9216:9216"
+    networks:
+      - parivision_net
+    depends_on:
+      - mongodb # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de MongoDB.
+    command:
+      - '--mongodb.uri=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017' # MongoDB connection URI
+      - '--compatible-mode' # Exposes new metrics in the new and old format at the same time.
+      - '--discovering-mode' # Enable autodiscover collections from databases which set in collstats-colls and indexstats-colls.
+      - '--mongodb.collstats-colls=parivision.parivision_raw,parivision.parivision_processed' # List of comma separated databases.collections to get stats.
+      - '--mongodb.indexstats-colls=parivision.parivision_raw,parivision.parivision_processed' # List of comma separated database.collections to get index stats.
+
+  cadvisor: # CAdvisor permet de surveiller les ressources des conteneurs.
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    restart: unless-stopped
+    ports:
+      - 8082:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - parivision_net
+    depends_on:
+      - prometheus # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de Prometheus.
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - 3333:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning/:/etc/grafana/provisioning/
+    environment:
+      GF_SECURITY_ADMIN_USER: $GF_SECURITY_ADMIN_USER # Nom d'utilisateur administrateur pour Grafana.
+      GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD} # Mot de passe administrateur pour Grafana.
+      GF_USERS_ALLOW_SIGN_UP: "false" # Désactive l'inscription d'utilisateurs.
+    networks:
+      - parivision_net
+    depends_on:
+      - prometheus # Définit une dépendance. Ce service ne démarrera qu'après le démarrage de Prometheus.
+
+  # TEMPLATE
+  # service:
+  #   image: image
+  #   container_name: service
+  #   restart: unless-stopped
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile_service
+  #   ports:
+  #     - "9999:9999"
+  #   volumes:
+  #     - ./service:/app
+  #   environment:
+  #     - SERVICE_USERNAME=
+  #     - SERVICE_PASSWORD=
+  #   networks:
+  #     - parivision_net
+  #   depends_on:
+  #     - parivision
+  #   command: sh -c "echo 'Hello World'"
+
+volumes:
+  portainer_data: # # Stocke les données de Portainer.
+  mongodb_data: # Stocke les données du projet.
+  mongodb_config: # Stocke la configuration de la base de données.
+  mlflow_data: # Stocke les "runs" MLflow.
+  mlflow_artifacts: # Stocke les "artefacts" (modèles, métriques, etc ...).
+  prometheus_data: # Stocke les données de Prometheus.
+  alertmanager_data: # Stocke les données de Alert Manager.
+  grafana_data: # Stocke les données de Grafana.
+
+networks: # Réseau commun "parivision_net", en mode bridge.
+  parivision_net:
+    driver: bridge
