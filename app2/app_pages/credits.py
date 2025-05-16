@@ -25,7 +25,7 @@ def content():
     c1, c2  = st.columns(2)
     with c1:
         st.write("## Auteurs")
-        st.markdown("<b>Florent Heuze</b>" + linked_img('linkedin.png', 'https://www.linkedin.com/', 20),  
+        st.markdown("<b>Florent Heuze</b>" + linked_img('linkedin.png', 'https://www.linkedin.com/in/heuzef/', 20),  
         unsafe_allow_html=True)  
         st.markdown("<b>Pierre Cohen</b>" + linked_img('linkedin.png', 'https://www.linkedin.com/', 20),  
         unsafe_allow_html=True)  
