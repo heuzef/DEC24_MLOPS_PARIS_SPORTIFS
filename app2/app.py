@@ -15,9 +15,9 @@ st.session_state['imagePath'] = 'images/'
 st.session_state['app_name'] = 'Parivison'
 
 list_pages = {
-    "Home": app_pages.home,
-    "Exploratory Data Analysis (EDA)": app_pages.eda,
-    "Prédictions": app_pages.predictions,
+    "Accueil": app_pages.home,
+    "EDA": app_pages.eda,
+    "Predictions": app_pages.predictions,
     "Credits": app_pages.credits
 }
 

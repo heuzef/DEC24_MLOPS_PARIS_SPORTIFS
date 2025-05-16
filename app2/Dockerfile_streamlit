@@ -8,7 +8,7 @@ WORKDIR /app2
 # Copier les fichiers de l'application
 COPY .env .
 COPY app2 .
-COPY ../reports/WORKFLOW.png .
+COPY ../reports/WORKFLOW.png ./images/WORKFLOW.png
 
 RUN apt-get update && apt-get install -y \
     build-essential \

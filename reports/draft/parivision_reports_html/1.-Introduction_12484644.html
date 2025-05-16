@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation MLOPS : 1. Introduction</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Documentation MLOPS</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Rapports_720900.html">Rapports</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Documentation MLOPS : 1. Introduction
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Heuzef</span>, last modified on mai 09, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <style type="text/css">/*<![CDATA[*/
+div.rbtoc1746800001742 {padding: 0px;}
+div.rbtoc1746800001742 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1746800001742 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class="toc-macro rbtoc1746800001742"><style>[data-colorid=ybpkawopwm]{color:#008da6} html[data-color-mode=dark] [data-colorid=ybpkawopwm]{color:#59e6ff}</style>
+<ul class="toc-indentation">
+<li><a href="#id-1.Introduction-ProjetPariVision:prédictiondesrésultatsdesmatchsdeBasketball(NBA)">Projet PariVision : pr&eacute;diction des r&eacute;sultats des matchs de Basketball (NBA)</a></li>
+<li><a href="#id-1.Introduction-Introduction">Introduction</a></li>
+<li><a href="#id-1.Introduction-Objectifs">Objectifs</a></li>
+<li><a href="#id-1.Introduction-Contributionàl’industrie">Contribution &agrave; l&rsquo;industrie</a></li>
+<li><a href="#id-1.Introduction-Principauxdéfisidentifiés">Principaux d&eacute;fis identifi&eacute;s</a></li>
+<li><a href="#id-1.Introduction-Fluxdetravail">Flux de travail</a></li>
+<li><a href="#id-1.Introduction-Hébergementduprojet">H&eacute;bergement du projet</a></li>
+</ul>
+</div><h1 id="id-1.Introduction-ProjetPariVision:prédictiondesrésultatsdesmatchsdeBasketball(NBA)">Projet PariVision : pr&eacute;diction des r&eacute;sultats des matchs de Basketball (NBA)</h1><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20250509-085954.png" width="760" loading="lazy" src="attachments/12484644/145326081.png?width=760" data-image-src="attachments/12484644/145326081.png" data-height="1024" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="145326081" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20250509-085954.png" data-base-url="https://heuzef.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="12484644" data-linked-resource-container-version="14" data-media-id="87b43beb-755c-49ed-b5e1-d50a0b0e549b" data-media-type="file" /></span><h1 id="id-1.Introduction-Introduction">Introduction</h1><p>Le basketball, en particulier la NBA (National Basketball Association), figure parmi les sports les plus pris&eacute;s au monde. Il attire des millions de spectateurs et g&eacute;n&egrave;re un march&eacute; &eacute;conomique colossal, notamment dans le domaine des paris sportifs. Avec une saison r&eacute;guli&egrave;re comprenant 82 matchs par &eacute;quipe et des playoffs intenses, la NBA offre un volume cons&eacute;quent de donn&eacute;es exploitables pour l&rsquo;analyse pr&eacute;dictive. Dans ce contexte, o&ugrave; chaque tir peut influencer l&rsquo;issue d&rsquo;un match et g&eacute;n&eacute;rer des enjeux strat&eacute;giques, &eacute;conomiques (paris sportifs, droits TV) ou &eacute;motionnels (engagement des fans), la capacit&eacute; &agrave; pr&eacute;dire la r&eacute;ussite d&rsquo;un tir sp&eacute;cifique devient un atout pr&eacute;cieux.</p><p>Notre projet <strong><span data-colorid="ybpkawopwm">PariVision</span></strong> se concentre sur cette probl&eacute;matique en combinant machine learning et ing&eacute;nierie MLOps pour concevoir un syst&egrave;me pr&eacute;dictif robuste et automatis&eacute;, capable d&rsquo;estimer les r&eacute;sultats des matchs NBA. La complexit&eacute; r&eacute;side dans la mod&eacute;lisation des multiples facteurs influen&ccedil;ant un tir : position sur le terrain, pression d&eacute;fensive, ou m&ecirc;me le contexte du match (derni&egrave;res secondes, enjeux du score). Les approches statiques peinent &agrave; s&rsquo;adapter &agrave; la variabilit&eacute; des donn&eacute;es sportives, n&eacute;cessitant une infrastructure capable d&rsquo;&eacute;voluer avec les saisons et les m&eacute;triques &eacute;mergentes.</p><p>La pr&eacute;diction des tirs r&eacute;ussis au basketball est un enjeu central pour l&rsquo;analyse de la performance des joueurs, l&rsquo;optimisation des strat&eacute;gies d&rsquo;&eacute;quipe et l&rsquo;engagement des fans. Dans ce contexte, le projet &laquo;&nbsp;Pr&eacute;diction des tirs r&eacute;ussis des joueurs NBA&nbsp;&raquo; vise &agrave; concevoir, entra&icirc;ner et d&eacute;ployer un mod&egrave;le de machine learning capable de pr&eacute;dire, &agrave; partir des caract&eacute;ristiques du tir et de son contexte, la probabilit&eacute; de r&eacute;ussite d&rsquo;un tir tent&eacute; lors d&rsquo;un match NBA.</p><p>Ce projet s&rsquo;inscrit donc dans une d&eacute;marche compl&egrave;te de science des donn&eacute;es, de la pr&eacute;paration des donn&eacute;es brutes jusqu&rsquo;au d&eacute;ploiement et &agrave; la surveillance du mod&egrave;le. Il offre un cadre r&eacute;utilisable et &eacute;volutif pour l&rsquo;analyse pr&eacute;dictive dans le domaine sportif et au-del&agrave; et permet d&rsquo;illustrer comment le MLOps peut transformer des donn&eacute;es brutes en entr&eacute;es exploitable, en alignant pr&eacute;cision algorithmique et exigences op&eacute;rationnelles.</p><p><strong>En r&eacute;sum&eacute;</strong>, ce projet r&eacute;pond &agrave; des besoins concrets de l&rsquo;industrie du sport, s&rsquo;appuie sur les technologies les plus r&eacute;centes en data science et MLOps et anticipe les d&eacute;fis techniques, organisationnels et &eacute;thiques li&eacute;es &agrave; l&rsquo;analyse avanc&eacute;e de la performance sportive.</p><h1 id="id-1.Introduction-Objectifs">Objectifs</h1><p>En ciblant cette probl&eacute;matique, nous &eacute;laborons les objectifs suivants :</p><ul><li><p><strong>Pr&eacute;diction contextuelle :</strong> d&eacute;terminer la probabilit&eacute; de r&eacute;ussite d&rsquo;un tir en temps r&eacute;el, en s&rsquo;appuyant sur des donn&eacute;es synth&eacute;tiques ou historiques.</p></li><li><p><strong>Automatisation du flux de travail :</strong> conteneuriser chaque &eacute;tape et orchestrer les pipelines.</p></li><li><p><strong>Adaptabilit&eacute; continue :</strong> impl&eacute;menter un syst&egrave;me de r&eacute;-entrainement conditionnel, o&ugrave; un nouveau mod&egrave;le ne remplace l&rsquo;ancien que si son exactitude d&eacute;passe celle de l&rsquo;ancien mod&egrave;le.</p></li><li><p><strong>Garantir la tra&ccedil;abilit&eacute; et la reproductibilit&eacute; :</strong> des int&eacute;grations CI/CD, un suivi des performances, la reproductibilit&eacute; et la s&eacute;lection optimale des mod&egrave;les.</p></li><li><p><strong>Surveillance en production : assurer</strong> une supervision granulaire des requ&ecirc;tes API, de la base de donn&eacute;es ainsi qu&rsquo;une toute d&eacute;rive des donn&eacute;es ou baisse de performance en production pour ainsi maintenir la fiabilit&eacute; du mod&egrave;le dans le temps.</p></li></ul><p>Les principaux r&eacute;sultats attendus sont :</p><ul><li><p><strong>Un mod&egrave;le de machine learning </strong>valid&eacute; par des m&eacute;triques robustes.</p></li><li><p><strong>Un service de pr&eacute;diction d&eacute;ploy&eacute;</strong>&nbsp;sous forme d&rsquo;API REST.</p></li><li><p><strong>Une application</strong> d&rsquo;aide &agrave; la d&eacute;cision.</p></li><li><p><strong>Des rapports et panneaux de supervision</strong>&nbsp;d&eacute;tectant la d&eacute;rive des donn&eacute;es ou de la performance, garantissant la fiabilit&eacute; continue du mod&egrave;le.</p></li><li><p><strong>Une documentation compl&egrave;te</strong>&nbsp;du pipeline, des choix de mod&eacute;lisation et des r&eacute;sultats, facilitant la r&eacute;utilisation et l&rsquo;&eacute;volution du projet.</p></li></ul><h1 id="id-1.Introduction-Contributionàl’industrie"><strong>Contribution &agrave; l&rsquo;industrie</strong></h1><ul><li><p><strong>Am&eacute;lioration de la performance sportive</strong>&nbsp;: Les analyses issues du mod&egrave;le permettent d&rsquo;identifier les zones et situations &agrave; haut potentiel de r&eacute;ussite, d&rsquo;ajuster les strat&eacute;gies de tir et d&rsquo;individualiser l&rsquo;entra&icirc;nement des joueurs.</p></li><li><p><strong>Appui &agrave; la prise de d&eacute;cision en temps r&eacute;el</strong>&nbsp;: Les &eacute;quipes NBA utilisent de plus en plus ces outils pour adapter les tactiques pendant les matchs, optimiser les rotations ou anticiper les faiblesses adverses.</p></li><li><p><strong>Valorisation de la data dans l&rsquo;&eacute;cosyst&egrave;me sportif</strong>&nbsp;: Le projet illustre comment la collecte, l&rsquo;analyse et l&rsquo;exploitation intelligente des donn&eacute;es deviennent des leviers majeurs de comp&eacute;titivit&eacute; et d&rsquo;innovation dans le sport professionnel.</p></li><li><p><strong>Transf&eacute;rabilit&eacute;</strong>&nbsp;: Ce type de pipeline peut &ecirc;tre adapt&eacute; &agrave; d&rsquo;autres sports ou contextes (recrutement, pr&eacute;vention des blessures, exp&eacute;rience fan, etc, ...).</p></li></ul><h1 id="id-1.Introduction-Principauxdéfisidentifiés"><strong>Principaux d&eacute;fis identifi&eacute;s</strong></h1><ul><li><p><strong>Qualit&eacute; et h&eacute;t&eacute;rog&eacute;n&eacute;it&eacute; des donn&eacute;es</strong>&nbsp;: Les donn&eacute;es sportives sont souvent bruit&eacute;es, incompl&egrave;tes ou issues de sources multiples, ce qui n&eacute;cessite un pr&eacute;-traitement rigoureux.</p></li><li><p><strong>&Eacute;volution des strat&eacute;gies et du jeu</strong>&nbsp;: Les mod&egrave;les doivent s&rsquo;adapter &agrave; des changements de r&egrave;gles, de tactiques ou de comportements des joueurs, rendant la supervision essentielle.</p></li><li><p><strong>D&eacute;rive des donn&eacute;es et des performances</strong>&nbsp;: Sans surveillance, un mod&egrave;le performant peut devenir obsol&egrave;te si la distribution des donn&eacute;es &eacute;volue (ex : nouveaux sch&eacute;mas de jeu, &eacute;volution du profil des joueurs).</p></li><li><p><strong>D&eacute;fis &eacute;thiques et r&eacute;glementaires</strong>&nbsp;: Respect de la vie priv&eacute;e des joueurs, s&eacute;curit&eacute; des donn&eacute;es, &eacute;quit&eacute; dans l&rsquo;acc&egrave;s aux technologies avanc&eacute;es.</p></li><li><p><strong>Int&eacute;gration et adoption</strong>&nbsp;: Faire accepter et int&eacute;grer ces outils dans les routines des &eacute;quipes et du staff technique peut n&eacute;cessiter un accompagnement au changement.</p></li></ul><h1 id="id-1.Introduction-Fluxdetravail">Flux de travail</h1><p>Dans une logique MLOps moderne, le projet int&egrave;gre une pipeline ML Ci/CD :</p><ul><li><p><strong>Le suivi d&rsquo;exp&eacute;riences avec MLflow</strong>, pour garantir la tra&ccedil;abilit&eacute;, la reproductibilit&eacute; et la s&eacute;lection optimale des mod&egrave;les.</p></li><li><p><strong>Le d&eacute;ploiement du mod&egrave;le avec FastAPI</strong>, permettant de rendre la pr&eacute;diction accessible via une API REST.</p></li><li><p><strong>La surveillance continu avec Evidently</strong>, pour d&eacute;tecter toute d&eacute;rive des donn&eacute;es et ainsi maintenir la fiabilit&eacute; du mod&egrave;le sur la dur&eacute;e.</p></li></ul><a href="https://heuzef.atlassian.net/wiki/spaces/~712020b0ae8f9eeb79451daefbac68172f2c6c/whiteboard/2457602" data-layout="wide" data-width="100.00" data-card-appearance="embed" rel="nofollow">https://heuzef.atlassian.net/wiki/spaces/~712020b0ae8f9eeb79451daefbac68172f2c6c/whiteboard/2457602</a><h1 id="id-1.Introduction-Hébergementduprojet">H&eacute;bergement du projet</h1><p>Le projet est enti&egrave;rement h&eacute;berg&eacute; sur un serveur unique en mode monolithique. Bien que cette approche ne soit pas la plus optimale en termes de performance et de scalabilit&eacute;, elle a &eacute;t&eacute; choisie en raison de contraintes budg&eacute;taires et de ressources disponibles. </p><p>Cette configuration permet de centraliser les op&eacute;rations et de simplifier la gestion des infrastructures, tout en respectant les limitations financi&egrave;res et techniques.</p><ul><li><p>Acc&egrave;s a la page d&rsquo;accueil du projet : <a href="https://parivision.heuzef.com/" class="external-link" rel="nofollow">PariVision 2025</a></p></li><li><p>Acc&egrave;s au d&eacute;p&ocirc;t Git du projet : <a href="https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/" data-card-appearance="inline" class="external-link" rel="nofollow">https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/</a>  </p></li><li><p>Miroir : <a href="https://github.com/heuzef/DEC24_MLOPS_PARIS_SPORTIFS" data-card-appearance="inline" class="external-link" rel="nofollow">https://github.com/heuzef/DEC24_MLOPS_PARIS_SPORTIFS</a> </p></li></ul><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20250509-091817.png" width="760" loading="lazy" src="attachments/12484644/145784835.png?width=760" data-image-src="attachments/12484644/145784835.png" data-height="1221" data-width="1091" data-unresolved-comment-count="0" data-linked-resource-id="145784835" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20250509-091817.png" data-base-url="https://heuzef.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="12484644" data-linked-resource-container-version="14" data-media-id="18908884-f554-4077-ae72-4b1eb539b833" data-media-type="file" /></span><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/12484644/122257409.png">image-20250319-093756.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/12484644/145326081.png">image-20250509-085954.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/12484644/145784835.png">image-20250509-091817.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on mai 09, 2025 16:13</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

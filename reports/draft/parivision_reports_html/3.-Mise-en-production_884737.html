@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation MLOPS : 3. Mise en production</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Documentation MLOPS</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Rapports_720900.html">Rapports</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Documentation MLOPS : 3. Mise en production
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Heuzef</span>, last modified on avr. 17, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <style type='text/css'>/*<![CDATA[*/
+div.rbtoc1746800008834 {padding: 0px;}
+div.rbtoc1746800008834 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1746800008834 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1746800008834'>
+<ul class='toc-indentation'>
+<li><a href='#id-3.Miseenproduction-DéploiementdelaVM'>Déploiement de la VM</a>
+<ul class='toc-indentation'>
+<li><a href='#id-3.Miseenproduction-ConnexionSSH'>Connexion SSH</a></li>
+<li><a href='#id-3.Miseenproduction-Installation'>Installation</a></li>
+<li><a href='#id-3.Miseenproduction-Initialisation'>Initialisation</a></li>
+</ul>
+</li>
+<li><a href='#id-3.Miseenproduction-ConfigurationdelaVM'>Configuration de la VM</a></li>
+<li><a href='#id-3.Miseenproduction-GITHUB'>GITHUB</a></li>
+<li><a href='#id-3.Miseenproduction-Clonerledépôt'>Cloner le dépôt</a></li>
+<li><a href='#id-3.Miseenproduction-Actualiserledépôt'>Actualiser le dépôt</a></li>
+<li><a href='#id-3.Miseenproduction-Miseenplaced’unWorkflowGithubActions'>Mise en place d’un Workflow Github Actions</a></li>
+<li><a href='#id-3.Miseenproduction-Miseenplaced’unWorkflowdetestsunitaires'>Mise en place d’un Workflow de tests unitaires</a></li>
+<li><a href='#id-3.Miseenproduction-Livraisoncontinue(CD)'>Livraison continue (CD)</a></li>
+<li><a href='#id-3.Miseenproduction-Python'>Python</a></li>
+<li><a href='#id-3.Miseenproduction-Miseàjouretinstallationdesdépendances'>Mise à jour et installation des dépendances</a></li>
+<li><a href='#id-3.Miseenproduction-Créationdel&#39;environnementvirtuel'>Création de l&#39;environnement virtuel</a></li>
+<li><a href='#id-3.Miseenproduction-Installationdeslibrairies'>Installation des librairies</a></li>
+<li><a href='#id-3.Miseenproduction-Fichierd’environnement'>Fichier d’environnement</a></li>
+<li><a href='#id-3.Miseenproduction-Docker'>Docker</a></li>
+<li><a href='#id-3.Miseenproduction-InstallationdeDockersurlaVM'>Installation de Docker sur la VM</a></li>
+<li><a href='#id-3.Miseenproduction-Configuration'>Configuration</a></li>
+<li><a href='#id-3.Miseenproduction-Docker-Compose'>Docker-Compose</a></li>
+<li><a href='#id-3.Miseenproduction-Homer'>Homer</a></li>
+<li><a href='#id-3.Miseenproduction-Description'>Description</a></li>
+<li><a href='#id-3.Miseenproduction-Jenkins'>Jenkins</a></li>
+<li><a href='#id-3.Miseenproduction-Installation.1'>Installation</a></li>
+<li><a href='#id-3.Miseenproduction-Configuration.1'>Configuration</a></li>
+<li><a href='#id-3.Miseenproduction-Plugins'>Plugins</a></li>
+<li><a href='#id-3.Miseenproduction-Créerunagentparivision'>Créer un agent parivision</a></li>
+<li><a href='#id-3.Miseenproduction-Pipeline'>Pipeline</a></li>
+<li><a href='#id-3.Miseenproduction-MLFlow'>MLFlow</a></li>
+<li><a href='#id-3.Miseenproduction-Objectif'>Objectif</a></li>
+<li><a href='#id-3.Miseenproduction-Initialisation.1'>Initialisation</a></li>
+<li><a href='#id-3.Miseenproduction-Utilisation'>Utilisation</a></li>
+<li><a href='#id-3.Miseenproduction-Configurerl’expériencePariVision'>Configurer l’expérience PariVision</a></li>
+<li><a href='#id-3.Miseenproduction-Miseenœuvre'>Mise en œuvre</a>
+<ul class='toc-indentation'>
+<li><a href='#id-3.Miseenproduction-Enregistrementdesexpériences'>Enregistrement des expériences</a></li>
+<li><a href='#id-3.Miseenproduction-Bénéfices'>Bénéfices</a></li>
+<li><a href='#id-3.Miseenproduction-Conclusion'>Conclusion</a></li>
+</ul>
+</li>
+<li><a href='#id-3.Miseenproduction-MLFLOW-CHAMPION'>MLFLOW-CHAMPION</a></li>
+</ul>
+</div><h1 id="id-3.Miseenproduction-DéploiementdelaVM">Déploiement de la VM</h1><p>La machine virtuelle utilisée pour la mise en production du projet dispose des ressources suivantes : </p><ul><li><p>RAM : 4G</p></li><li><p>CPU  : 4 (2 Sockets, 2 Cores)</p></li><li><p>Stockage  : SSD 128G</p></li><li><p>OS : Ubuntu Server 24.04</p></li><li><p>Nom de domaine : <strong>parivision.heuzef.com</strong></p></li></ul><p /><hr/><h2 id="id-3.Miseenproduction-ConnexionSSH">Connexion SSH</h2><p>La connexion s’effectue en SSH avec votre clé privée.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">ssh -i .ssh/cle.priv parivision@parivision.heuzef.com</pre>
+</div></div><h2 id="id-3.Miseenproduction-Installation">Installation</h2><p>La VM est déployée sur un Hyperviseur Proxmox, l’installation d’Ubuntu Server est effectuée sans partitionnement LVM, avec les drivers des applications tierces, OpenSSH et sans ajout logiciels supplémentaire.</p><p>Un pare-feu et un reverse proxy est actuellement en place sur l’infra de Heuzef pour autoriser publiquement les ports suivants : </p><ul><li><p>22 (SSH)</p></li><li><p>80  (HTTP)</p></li><li><p>443 (HTTPS)</p></li></ul><h2 id="id-3.Miseenproduction-Initialisation">Initialisation </h2><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Mise à jour du système
+sudo apt update &amp;&amp; sudo apt upgrade
+
+# Désactiver l&#39;authentification par mot de passe
+sudo vim /etc/ssh/sshd_config # PasswordAuthentication no
+sudo systemctl restart ssh
+
+# Ajouter les clefs SSH pour l&#39;authentification
+vim /home/parivision/.ssh/authorized_keys</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Une sauvegarde de bas niveau est effectuée à ce stade.</p></div></div><h1 id="id-3.Miseenproduction-ConfigurationdelaVM">Configuration de la VM</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence"># Configurer sur l&#39;heure de Paris
+sudo timedatectl set-timezone &quot;Europe/Paris&quot;
+
+# Ajout de quelques outils
+sudo apt install -y curl wget git tmux htop vim nano tree unzip smartmontools bmon</pre>
+</div></div><h1 id="id-3.Miseenproduction-GITHUB">GITHUB</h1><p>Le dépôt GIT du projet est hebergé ici :  <a href="https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS" data-card-appearance="inline" class="external-link" rel="nofollow">https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS</a> </p><h1 id="id-3.Miseenproduction-Clonerledépôt">Cloner le dépôt</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence"># Création  d&#39;une nouvelle clef SSH
+ssh-keygen -t ed25519
+
+# La clef doit être ajouté sur le repo github :
+# https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/settings/keys
+cat .ssh/id_ed25519.pub
+
+# Cloner le repo GIT :
+cd
+git clone git@github.com:DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS.git
+tree DEC24_MLOPS_PARIS_SPORTIFS/</pre>
+</div></div><h1 id="id-3.Miseenproduction-Actualiserledépôt">Actualiser le dépôt</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">cd /home/parivision/DEC24_MLOPS_PARIS_SPORTIFS/ ; git pull</pre>
+</div></div><h1 id="id-3.Miseenproduction-Miseenplaced’unWorkflowGithubActions">Mise en place d’un Workflow Github Actions</h1><p>Le workflow suivant est ajouté dans notre dépôt GIT dans <a href="https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/blob/master/.github/workflows/workflows.yaml" class="external-link" rel="nofollow"><strong>.github/workflows/workflows.yaml</strong></a></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">name: Workflow GitHub Action
+
+# Run Workflow when push on main
+on:
+  push:
+    branches:
+      - master
+jobs:
+  execute:
+    name: Update the production VM
+    runs-on: ubuntu-latest
+    steps:
+    - name: Connecting on remote VM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+                  cd /home/parivision/DEC24_MLOPS_PARIS_SPORTIFS/
+                  git fetch
+                  git pull</pre>
+</div></div><p /><p>Une clé SSH est créée pour l’occasion, dédiée à Github et autorisée sur notre VM de production et ajoutée sur Github.com.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20250124-112353.png" width="760" loading="lazy" src="attachments/16809985/31752198.png?width=760" data-image-src="attachments/16809985/31752198.png" data-height="943" data-width="1580" data-unresolved-comment-count="0" data-linked-resource-id="31752198" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20250124-112353.png" data-base-url="https://heuzef.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="16809985" data-linked-resource-container-version="4" data-media-id="93a15a2a-eefe-4d3a-bd46-a3e59aef7f74" data-media-type="file"></span><h1 id="id-3.Miseenproduction-Miseenplaced’unWorkflowdetestsunitaires">Mise en place d’un Workflow de tests unitaires</h1><p>Le workflow suivant est ajouté dans notre dépôt GIT dans <a href="https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/blob/master/.github/workflows/pytest.yaml" class="external-link" rel="nofollow"><strong>.github/workflows/pytest.yaml</strong></a></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">name: Run units tests
+# Run Units tests when push on master
+on:
+  push:
+    branches:
+      - master
+jobs:
+  execute:
+    name: Run Pytest
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: &#39;3.x&#39;
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Test with pytest
+      run: |
+        pip install pytest pytest-cov
+        pytest tests/*.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html</pre>
+</div></div><p>Ce dernier va effectuer une série de test unitaires, avec le module Pytest, l’ensemble des scripts <code>tests/*.py</code> qui seront ajoutée au fur et à mesure du développement, offrant une évolution TDD possible.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20250509-104339.png" width="760" loading="lazy" src="attachments/16809985/145358895.png?width=760" data-image-src="attachments/16809985/145358895.png" data-height="233" data-width="1404" data-unresolved-comment-count="0" data-linked-resource-id="145358895" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20250509-104339.png" data-base-url="https://heuzef.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="16809985" data-linked-resource-container-version="4" data-media-id="d5a58540-b69e-411b-9ad5-1604b56341ce" data-media-type="file"></span><h1 id="id-3.Miseenproduction-Livraisoncontinue(CD)">Livraison continue (CD)</h1><p>L’actualisation du dépôt est maintenant effectuée automatiquement à chaque push sur Github :</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20250509-104039.png" width="760" loading="lazy" src="attachments/16809985/146112543.png?width=760" data-image-src="attachments/16809985/146112543.png" data-height="245" data-width="1095" data-unresolved-comment-count="0" data-linked-resource-id="146112543" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20250509-104039.png" data-base-url="https://heuzef.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="16809985" data-linked-resource-container-version="4" data-media-id="6f82288e-8854-40cb-9118-b58fe72dcfdc" data-media-type="file"></span><p /><h1 id="id-3.Miseenproduction-Python">Python</h1><h1 id="id-3.Miseenproduction-Miseàjouretinstallationdesdépendances">Mise à jour et installation des dépendances</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">sudo apt upgrade python3
+sudo apt install python3-pip python3-venv</pre>
+</div></div><h1 id="id-3.Miseenproduction-Créationdel&#39;environnementvirtuel">Création de l'environnement virtuel</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">cd /home/parivision/DEC24_MLOPS_PARIS_SPORTIFS
+python3 -m venv .venv
+source .venv/bin/activate</pre>
+</div></div><h1 id="id-3.Miseenproduction-Installationdeslibrairies">Installation des librairies</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: py; gutter: false; theme: Confluence" data-theme="Confluence">pip install -r requirements.txt</pre>
+</div></div><h1 id="id-3.Miseenproduction-Fichierd’environnement">Fichier d’environnement</h1><p>Un fichier d’environnement présent sur la VM de production est ignoré à la racine du dépôt GIT, ce dernier contient les différents secrets nécessaire au projet.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">/home/parivision/DEC24_MLOPS_PARIS_SPORTIFS/.env</pre>
+</div></div><p>Les scripts python du projet utilisent la librairie <strong>dotenv</strong> pour charger les secrets : </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: py; gutter: false; theme: Confluence" data-theme="Confluence">import os
+from dotenv import load_dotenv
+load_dotenv(&quot;.env&quot;)
+
+secret = os.getenv(&#39;secret&#39;)</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Une sauvegarde de bas niveau est effectuée à ce stade.</p></div></div><h1 id="id-3.Miseenproduction-Docker">Docker</h1><p>Docker sert de composante principale pour l’infrastructure du projet.</p><h1 id="id-3.Miseenproduction-InstallationdeDockersurlaVM">Installation de Docker sur la VM</h1><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Réf : <a href="https://docs.docker.com/engine/install/ubuntu/" data-card-appearance="inline" class="external-link" rel="nofollow">https://docs.docker.com/engine/install/ubuntu/</a> </p></div></div><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Add Docker&#39;s official GPG key:
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;) stable&quot; | \
+  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+sudo apt update
+
+# Install the latest version:
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose</pre>
+</div></div><h1 id="id-3.Miseenproduction-Configuration">Configuration</h1><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Réf: <a href="https://docs.docker.com/engine/install/linux-postinstall/" data-card-appearance="inline" class="external-link" rel="nofollow">https://docs.docker.com/engine/install/linux-postinstall/</a> </p></div></div><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Post-install:
+sudo usermod -aG docker parivision
+newgrp docker
+docker run hello-world
+
+# Auto-start:
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service</pre>
+</div></div><h1 id="id-3.Miseenproduction-Docker-Compose">Docker-Compose</h1><p>La configuration complète de Docker repose sur Docker-Compose.</p><p>Pour cela, le fichier <strong>docker-compose.yml</strong> qui définie la configuration de PariVision est intégré au processus de démarrage. : <a href="https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/blob/master/docker-compose.yml" data-card-appearance="inline" class="external-link" rel="nofollow">https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/blob/master/docker-compose.yml</a> </p><p>Pour tester, executer manuellement le lancement de l’infrastructure Docker ainsi : </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">docker-compose up /home/parivision/DEC24_MLOPS_PARIS_SPORTIFS/docker-compose.yml</pre>
+</div></div><p>L’ensemble des services devraient être accessibles.</p><p>Le service PORTAINER permet d’administrer sur une interface web toute la configuration Docker, accessible sur le port 9443. Par exemple, pour lister tous les containers  :</p><p><a href="https://192.168.0.130:9443/#!/2/docker/containers" class="external-link" rel="nofollow">https://parivision.heuzef.com:9443/#!/2/docker/containers</a></p><p /><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Une sauvegarde de bas niveau est effectuée à ce stade.</p></div></div><h1 id="id-3.Miseenproduction-Homer">Homer</h1><h1 id="id-3.Miseenproduction-Description">Description</h1><p>Homer est un portail statique personnalisable servant de point d’entrée du projet pour lister et accéder rapidement aux différents services du projet.</p><p>Dépôt du projet :homer: <a href="https://github.com/bastienwirtz/homer" data-card-appearance="inline" class="external-link" rel="nofollow">https://github.com/bastienwirtz/homer</a> </p><p>L’adresse d’accès est le domaine principale du projet : <a href="https://parivision.heuzef.com" class="external-link" rel="nofollow">https://parivision.heuzef.com</a></p><p>La configuration du Dashboard de Homer s’effectue directement sur le dépôt GIT, dossier <strong>“homer”</strong> : <a href="https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/tree/master/homer" data-card-appearance="inline" class="external-link" rel="nofollow">https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/tree/master/homer</a> </p><p>Le portail est configuré via un simple fichier YAML.</p><h1 id="id-3.Miseenproduction-Jenkins">Jenkins</h1><h1 id="id-3.Miseenproduction-Installation.1">Installation</h1><p>L’installation de Jenkins ne sera pas containérisé car le projet est sur une VM unique et le nœud maître doit avoir la possibilité de gérer les instances docker du projet. La méthode DooD n’est pas favorisée ici.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo &quot;deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]&quot; https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list &gt; /dev/null
+
+sudo apt-get update
+sudo apt install -y fontconfig openjdk-17-jre jenkins
+
+sudo usermod -aG docker jenkins
+sudo systemctl restart docker
+
+
+sudo systemctl enable jenkins
+sudo systemctl stop jenkins
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword</pre>
+</div></div><p>Se rendre sur l’instance, port <strong>8080</strong>, pour déverrouiller l’installation avec  le  <code>initialAdminPassword</code>.</p><h1 id="id-3.Miseenproduction-Configuration.1">Configuration</h1><ul><li><p>Démarrer l'installation des plugins communautaires recommandés.</p></li><li><p>Créer le compte administrateur.</p></li></ul><h1 id="id-3.Miseenproduction-Plugins">Plugins</h1><p>Installer les  plugins suivants : </p><ul><li><p>GitHub Integration</p></li><li><p>Blue Ocean</p></li><li><p>AnsiColor</p></li></ul><h1 id="id-3.Miseenproduction-Créerunagentparivision">Créer un agent parivision</h1><p>L’utilisateur Jenkins ne dispose pas des mêmes permissions que  l’utilisateur parivision. <br/>Nous pouvons remerdier à cela en créant un agent “parivision” qui se connectera sur l’hôte local avec l’utilisateur parivision.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20250130-141146.png" width="760" loading="lazy" src="attachments/40534017/41910273.png?width=760" data-image-src="attachments/40534017/41910273.png" data-height="1039" data-width="1223" data-unresolved-comment-count="0" data-linked-resource-id="41910273" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20250130-141146.png" data-base-url="https://heuzef.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="40534017" data-linked-resource-container-version="7" data-media-id="f95b591c-f2ab-45f3-b970-3a99e6879bdb" data-media-type="file"></span><p>Finalement, le nœud maître principal doit être désactivé, en ajustant son nombre d'exécuteurs à zéro.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20250130-141324.png" width="561" loading="lazy" src="attachments/40534017/42106881.png?width=561" data-image-src="attachments/40534017/42106881.png" data-height="160" data-width="561" data-unresolved-comment-count="0" data-linked-resource-id="42106881" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20250130-141324.png" data-base-url="https://heuzef.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="40534017" data-linked-resource-container-version="7" data-media-id="08ad129c-d99f-4379-9a93-046bcedea398" data-media-type="file"></span><p>Finalement, les différents Jobs du projets peuvent être mis en place.</p><h1 id="id-3.Miseenproduction-Pipeline">Pipeline</h1><p>Concernant la Pipeline ML du projet PariVision, celle-ci sera synchronisé sur le JenkinsFile disponible dans le dépôt  GIT : <a href="https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/blob/master/Jenkinsfile" data-card-appearance="inline" class="external-link" rel="nofollow">https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/blob/master/Jenkinsfile</a> </p><p>La  création de l’objet Pipeline s’effectue avec les paramètres suivants : </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20250218-151519.png" width="760" loading="lazy" src="attachments/40534017/78118913.png?width=760" data-image-src="attachments/40534017/78118913.png" data-height="780" data-width="1063" data-unresolved-comment-count="0" data-linked-resource-id="78118913" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20250218-151519.png" data-base-url="https://heuzef.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="40534017" data-linked-resource-container-version="7" data-media-id="d1410e86-be3f-4197-8104-67ba86c998ef" data-media-type="file"></span><p>Afin d’autoriser l’accès au repo à Jenkins, il faut désactiver la vérification de propriété depuis le compte jenkins :</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">su jenkins
+git config --global --add safe.directory /home/parivision/DEC24_MLOPS_PARIS_SPORTIFS/.git</pre>
+</div></div><p /><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Une sauvegarde de bas niveau est effectuée à ce stade.</p></div></div><h1 id="id-3.Miseenproduction-MLFlow">MLFlow</h1><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Accès à l’instance déployé via Docker : <a href="http://parivision.heuzef.com:5000/" class="external-link" rel="nofollow">http://parivision.heuzef.com:5000</a></p></div></div><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1746800008891 {padding: 0px;}
+div.rbtoc1746800008891 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1746800008891 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1746800008891'>
+<ul class='toc-indentation'>
+<li><a href='#id-3.Miseenproduction-Objectif'>Objectif</a></li>
+<li><a href='#id-3.Miseenproduction-Initialisation'>Initialisation</a></li>
+<li><a href='#id-3.Miseenproduction-Utilisation'>Utilisation</a></li>
+<li><a href='#id-3.Miseenproduction-Configurerl’expériencePariVision'>Configurer l’expérience PariVision</a></li>
+<li><a href='#id-3.Miseenproduction-Miseenœuvre'>Mise en œuvre</a>
+<ul class='toc-indentation'>
+<li><a href='#id-3.Miseenproduction-Enregistrementdesexpériences'>Enregistrement des expériences</a></li>
+<li><a href='#id-3.Miseenproduction-Bénéfices'>Bénéfices</a></li>
+<li><a href='#id-3.Miseenproduction-Conclusion'>Conclusion</a></li>
+</ul>
+</li>
+<li><a href='#id-3.Miseenproduction-MLFLOW-CHAMPION'>MLFLOW-CHAMPION</a></li>
+</ul>
+</div><h1 id="id-3.Miseenproduction-Objectif"><strong>Objectif</strong></h1><p>La mise en place de MLflow a pour but de tracer, comparer et reproduire toutes les expériences de modélisation menées dans le projet de prédiction des tirs réussis NBA. MLflow permet de centraliser les informations relatives aux modèles testés, d’optimiser le processus de sélection et d’assurer la transparence du pipeline data science.</p><h1 id="id-3.Miseenproduction-Initialisation.1">Initialisation</h1><p>Une fois les dépendance pour l’authentification MLFlow déployés, il faut s’authentifier dans le container pour modifier le mot de passe administrateur par défaut puis créer un nouvel utilisateur. Enfin, créer l’expérience avec les permissions appropriés : </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: py; gutter: false; theme: Confluence" data-theme="Confluence">docker exec -it mlflow bash
+export MLFLOW_TRACKING_USERNAME=admin
+export MLFLOW_TRACKING_PASSWORD=password
+python3
+&gt;&gt;&gt; import mlflow
+&gt;&gt;&gt; from mlflow.server.auth.client import AuthServiceClient
+&gt;&gt;&gt; client = AuthServiceClient(&quot;http://localhost:5000&quot;)
+&gt;&gt;&gt; client.create_user(username=&quot;parivision&quot;, password=&quot;**********&quot;)
+&gt;&gt;&gt; client.update_user_admin(username=&quot;parivision&quot;, is_admin=True)
+&gt;&gt;&gt; client.get_user(&quot;parivision&quot;).is_admin
+&gt;&gt;&gt; mlflow.MlflowClient(tracking_uri=&quot;http://localhost:5000&quot;).create_experiment(name=&quot;parivision&quot;)
+&gt;&gt;&gt; client.update_user_password(&quot;admin&quot;, &quot;**********&quot;)
+&gt;&gt;&gt; exit()
+exit</pre>
+</div></div><h1 id="id-3.Miseenproduction-Utilisation">Utilisation</h1><p>Se référer au Notebook tutoriel pour obtenir un exemple d’utilisation : </p><p><a href="https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/blob/master/notebooks/heuzef_mlflow.ipynb" class="external-link" rel="nofollow">https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/blob/master/notebooks/heuzef_mlflow.ipynb</a></p><h1 id="id-3.Miseenproduction-Configurerl’expériencePariVision">Configurer l’expérience PariVision</h1><p>Afin de permettre le bon fonctionnement du Workflow, une expérience nommé <em><strong>“parivision”</strong></em> contenant au moins une run avec un alias <em><strong>“champion”</strong></em> est requis.</p><p>Une fois que la première run est remontée dans l’expérience <em><strong>“parivision”</strong></em>, il suffit de consulter cette dernière sur l’UI d'MLFlow, et d'effectuer ce premier enregistrement : </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20250313-135425.png" width="760" loading="lazy" src="attachments/77725700/117702657.png?width=760" data-image-src="attachments/77725700/117702657.png" data-height="686" data-width="1269" data-unresolved-comment-count="0" data-linked-resource-id="117702657" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20250313-135425.png" data-base-url="https://heuzef.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="77725700" data-linked-resource-container-version="8" data-media-id="f662ad88-539a-4a5a-8f2f-4ab73f82f737" data-media-type="file"></span><p>Finalement, lui attribuer l’alias <em><strong>“champion”</strong></em> :</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="mlflow_3.png" width="760" loading="lazy" src="attachments/77725700/117768193.png?width=760" data-image-src="attachments/77725700/117768193.png" data-height="563" data-width="947" data-unresolved-comment-count="0" data-linked-resource-id="117768193" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mlflow_3.png" data-base-url="https://heuzef.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="77725700" data-linked-resource-container-version="8" data-media-id="618cc30f-dbd6-4628-b210-55c21abb3537" data-media-type="file"></span><p>Nous avons défini un premier modèle Champion, qui est maintenant prêt à être challengé par les nouvelles runs.</p><h1 id="id-3.Miseenproduction-Miseenœuvre"><strong>Mise en œuvre</strong></h1><h2 id="id-3.Miseenproduction-Enregistrementdesexpériences">Enregistrement des expériences</h2><p>À chaque entraînement d’un modèle (Régression Logistique, Random Forest, Gradient Boosting, XGBoost, LightGBM), un nouveau run MLflow est lancé. Pour chaque run, MLflow enregistre automatiquement :</p><ul><li><p>Les hyperparamètres du modèle (ex : nombre d’estimateurs, learning_rate, max_depth…)</p></li><li><p>Les métriques de performance (accuracy, F1-score, ROC-AUC, etc.)</p></li><li><p>Les artefacts produits (matrices de confusion, graphiques d’importance des variables, rapports HTML)</p></li><li><p>Le modèle entraîné, sérialisé et versionné</p></li><li><p>Comparaison et sélection :<br/>L’interface web de MLflow permet de visualiser et comparer les runs sur la base des métriques enregistrées. Cette fonctionnalité facilite l’identification du meilleur modèle et l’analyse de l’impact des hyperparamètres.</p></li></ul><h2 id="id-3.Miseenproduction-Bénéfices"><strong>Bénéfices</strong></h2><ul><li><p>Reproductibilité : Chaque expérience peut être rejouée à l’identique.</p></li><li><p>Transparence : Toutes les étapes et résultats sont tracés et disponibles pour l’équipe.</p></li><li><p>Collaboration : L’interface facilite le partage et la revue des expériences entre data scientists.</p></li></ul><h2 id="id-3.Miseenproduction-Conclusion"><strong>Conclusion</strong></h2><p>MLflow s’est avéré un outil essentiel pour la gestion du cycle de vie des modèles dans ce projet. Il a permis de structurer le processus d’expérimentation, d’optimiser la sélection du modèle final, et de garantir la robustesse et la traçabilité du pipeline de modélisation.</p><h1 id="id-3.Miseenproduction-MLFLOW-CHAMPION">MLFLOW-CHAMPION</h1><p>Dans le cadre de PariVision, un script sur-mesure est développé afin de permettre une interaction avec MLFlow. Ce script Python est conçu pour interagir avec un serveur MLFlow dans le cadre d'une pipeline automatisée de gestion de modèles de machine learning. </p><p>Voici une synthèse de ses actions :</p><ol start="1"><li><p><strong>Configuration du Client MLFlow :</strong> Initialise un client MLFlow pour interagir avec le serveur.</p></li><li><p><strong>Récupération des Runs :</strong> Récupère les runs (valides) terminées du modèle spécifique PariVision.</p></li><li><p><strong>Identification du Champion actuel :</strong> Charge le modèle actuel marqué comme &quot;Tenant au titre&quot; pour obtenir son identifiant de run.</p></li><li><p><strong>Détermination du nouveau Champion :</strong> Compare les performances des runs terminées pour identifier si un nouveau &quot;champion&quot; (meilleur modèle) est présent.</p></li><li><p><strong>Mise à Jour du Champion :</strong> Si un nouveau champion est identifié, il enregistre (incrémente) une nouvelle version du modèle sur MLFlow et lui attribue l'alias &quot;champion&quot;.</p></li></ol><p>En résumé, ce script automatise le processus de comparaison des performances des modèles, identifie le meilleur modèle (champion), puis met à jour le serveur MLFlow en conséquence. </p><p>Cela permet de maintenir un modèle optimal en production de manière automatisée.</p><p />
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on mai 09, 2025 16:13</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>
