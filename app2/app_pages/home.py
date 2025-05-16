@@ -33,7 +33,7 @@ def content():
     
 
     st.link_button("🔗 Site principal du projet", type='primary', url="https://parivision.heuzef.com")
-    st.link_button("⬇️ Télécharger le rapport PDF", type='secondary', url="https://github.com/heuzef/parivision/src/branch/master/reports/parivision_report.pdf")
+    st.link_button("⬇️ Télécharger le rapport PDF", type='secondary', url="https://github.com/heuzef/DEC24_MLOPS_PARIS_SPORTIFS/blob/main/reports/parivision_report.pdf")
 
     st.divider()
     
