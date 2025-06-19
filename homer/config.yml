@@ -80,7 +80,7 @@ services:
         target: "_blank"
       - name: "Dépôt GIT (Github)"
         logo: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/github.png"
-        url: "https://github.com/DataScientest-Studio/DEC24_MLOPS_PARIS_SPORTIFS/"
+        url: "https://github.com/heuzef/DEC24_MLOPS_PARIS_SPORTIFS/"
         target: "_blank"
   - name: "Orchestration"
     icon: "fas fa-layer-group"
